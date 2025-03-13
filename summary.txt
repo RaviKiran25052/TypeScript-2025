@@ -1,0 +1,24 @@
+npm i typescript --save-dev
+
+creates tsconfig file = npx tsc --init
+
+tsc main.ts = compile ts
+node main.js = run js
+
+"scripts": {
+   "dev": "tsc main.ts && node -e \"require('fs').unlinkSync('main.js')\""
+}
+
+npx create-react-app my-app --template typescript
+
+------------------------------------------------------------
+primitive types: number, string, boolean, null, undefined
+
+number:
+let num = 1 | 0 | -2 | 3.14 | -3.14 | Infinity | -Infinity
+
+string:
+let str = "hello" | 'world' | `${}`
+
+boolean:
+let bln = true | false
