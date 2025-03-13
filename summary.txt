@@ -11,8 +11,18 @@ node main.js = run js
 
 npx create-react-app my-app --template typescript
 
-------------------------------------------------------------
-primitive types: number, string, boolean, null, undefined
+npm install -D tailwindcss@^3
+npx tailwindcss init -p
+
+content: ["./src/**/*.{js,ts,jsx,tsx}"]
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+----------------------------------------------------------------------
+
+PRIMITIVE TYPES: number, string, boolean, null, undefined, void, never
 
 number:
 let num = 1 | 0 | -2 | 3.14 | -3.14 | Infinity | -Infinity
@@ -22,3 +32,28 @@ let str = "hello" | 'world' | `${}`
 
 boolean:
 let bln = true | false
+
+undefined:
+let und = undefined
+und = 2
+und = "hi"
+
+null:
+let nl = null
+nl = 4
+nl = "hello"
+
+-> in undefined and null, the type was "any", so we can reintialize to another datatype.
+
+"void" is used when you're returning nothing from a function
+"never" is used when we explicitly define that a function never returns
+
+-----------------------------------------------------------------
+
+UNION: " | "
+
+let x: number | string = 4
+x = "four"
+
+-------------------------------------------------------
+
