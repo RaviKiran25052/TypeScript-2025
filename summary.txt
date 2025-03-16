@@ -314,3 +314,98 @@ const emp: Employee = {
 interface a extends b, c
 
 ----------------------------------------------------------------------
+
+GENERICS: allow you to create reusable components
+
+function identity<T>(value: T): T {
+    return value;
+}
+
+let output1 = identity<number>(10);   // T is number
+let output2 = identity<string>("Hello"); // T is string
+
+// TypeScript can infer the type automatically
+let output3 = identity(true);  // T is boolean
+
+// Using Multiple Type Parameters
+function pair<T, U>(first: T, second: U): [T, U] {
+    return [first, second];
+}
+
+let result = pair<string, number>("Alice", 25);
+
+interface KeyValuePair<K, V> {
+    key: K;
+    value: V;
+}
+
+const keyValue: KeyValuePair<string, number> = { key: "age", value: 25 };
+
+// TypeScript provides built-in utility types that work with generics.
+interface User {
+	name: string;
+	age: number;
+}
+
+// Partial<T>	Makes all properties optional
+// Required<T>	Makes all properties required
+// Readonly<T>	Makes all properties readonly
+// Record<K, T>	Defines an object with specific key-value pairs
+
+const user: Partial<User> = {}; // `name` and `age` are optional now
+
+----------------------------------------------------------------------
+
+Generic Constraints:
+
+function getLength<T>(item: T): number {
+    return item.length;
+}
+
+console.log(getLength(10)); // ❌ Error (number has no length)
+
+function getLength<T extends { length: number }>(item: T): number {
+    return item.length;
+}
+
+// Now, T must be an object that has a length property.
+
+console.log(getLength("Hello"));   // ✅ Works (string has length)
+console.log(getLength([1, 2, 3])); // ✅ Works (array has length)
+console.log(getLength(10)); // ❌ Error: Type 'number' does not satisfy the constraint '{ length: number; }'
+console.log(getLength({ length: 10 })); // ✅ Works (object with length property)
+
+----------------------------------------------------------------------
+
+Constraints with Interfaces:
+
+interface HasName {
+    name: string;
+}
+
+function greet<T extends HasName>(person: T): string {
+    return `Hello, ${person.name}`;
+}
+
+console.log(greet({ name: "Alice", age: 30 })); // ✅ Works
+console.log(greet({ name: "Bob" })); // ✅ Works
+// console.log(greet({ age: 25 })); // ❌ Error: Property 'name' is missing
+
+----------------------------------------------------------------------
+
+Using Multiple Constraints:
+
+interface HasId {
+    id: number;
+}
+
+interface HasName {
+    name: string;
+}
+
+function printInfo<T extends HasId & HasName>(obj: T): void {
+    console.log(`ID: ${obj.id}, Name: ${obj.name}`);
+}
+
+printInfo({ id: 1, name: "Alice" }); // ✅ Works
+// printInfo({ id: 1 }); // ❌ Error: Property 'name' is missing
